@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Quest Advanced - Option 14</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Noto+Serif:wght@700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .font-dancing { font-family: 'Dancing Script', cursive; }
+        .font-serif-custom { font-family: 'Noto Serif', serif; }
+        .font-times { font-family: 'Times New Roman', Times, serif; }
+
+        .animate-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hidden-tab { display: none !important; }
+        .active-tab { display: block !important; }
+        .hidden-content { display: none; }
+    </style>
+</head>
+<body class="bg-gray-100 selection:bg-blue-200 text-gray-900 min-h-screen">
+    
+    <div class="p-4 md:p-8 max-w-3xl mx-auto">
+        <!-- Header -->
+        <header class="mb-10 p-6 md:p-8 rounded-2xl shadow-lg relative overflow-hidden" style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);">
+            <div class="absolute bottom-0 left-0 w-full h-1/2 opacity-20 pointer-events-none" style="background: radial-gradient(ellipse at center bottom, rgba(255,255,255,0.8) 0%, transparent 70%);"></div>
+            <div class="absolute -bottom-10 -right-10 w-64 h-64 border-[40px] border-blue-400 rounded-full opacity-10 pointer-events-none"></div>
+
+            <div class="flex flex-col md:flex-row items-center justify-center md:justify-between relative z-10">
+                <div class="text-center md:text-left mb-6 md:mb-0">
+                    <h1 class="text-6xl md:text-[5rem] font-bold text-white leading-none drop-shadow-md font-dancing" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">
+                        <span class="block mb-[-0.2em] relative left-[-10px]">Vision</span>
+                        <span class="block ml-6 md:ml-12">Quest</span>
+                    </h1>
+                </div>
+
+                <div class="flex flex-col items-center md:items-start text-white">
+                    <div class="text-sm md:text-base font-sans font-bold tracking-[0.2em] opacity-90 mb-1 drop-shadow-sm">
+                        論理・表現 Ⅰ
+                    </div>
+                    <div class="text-xl md:text-2xl font-sans font-medium tracking-widest opacity-90 drop-shadow-sm">
+                        Advanced
+                    </div>
+                    <div class="text-[2rem] md:text-[2.5rem] mt-3 tracking-[0.1em] font-serif-custom uppercase drop-shadow-md"
+                         style="color: transparent; -webkit-text-stroke: 1px white; text-shadow: 0px 0px 8px rgba(255,255,255,0.4);">
+                        Workbook
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center relative z-10 mt-6 md:mt-2">
+                <span class="inline-block bg-white text-[#1e3a8a] px-5 py-2 rounded-full font-black text-sm tracking-widest shadow-md border border-blue-100">
+                    Option 14 形容詞・副詞
+                </span>
+            </div>
+        </header>
+
+        <!-- Tabs Navigation -->
+        <div class="flex flex-col md:flex-row justify-center gap-2 mb-8 bg-white p-1.5 rounded-xl shadow-sm border border-gray-200 w-full md:w-fit mx-auto relative z-20">
+            <button id="tab-btn-examples" onclick="switchTab('examples')" class="flex items-center justify-center px-6 py-3 rounded-lg font-bold text-sm transition-all bg-[#1e3a8a] text-white shadow-md">
+                <i class="ph ph-book-open text-lg mr-2"></i> 例文・表現を学ぶ
+            </button>
+            <button id="tab-btn-exercises" onclick="switchTab('exercises')" class="flex items-center justify-center px-6 py-3 rounded-lg font-bold text-sm transition-all text-gray-500 hover:text-[#1e3a8a] hover:bg-[#f0f4f9]">
+                <i class="ph ph-pen-nib text-lg mr-2"></i> Exercises
+            </button>
+        </div>
+
+        <!-- Main Content Area -->
+        <main id="main-content">
+            
+            <!-- Examples View -->
+            <div id="view-examples" class="active-tab animate-in">
+                <div class="bg-[#eef2f7] border-l-4 border-[#1e3a8a] p-4 rounded-r-lg shadow-sm mb-6">
+                    <p class="text-[#1e3a8a] text-base font-bold tracking-wide">
+                        Option 14 の重要例文です。スピーカーでお手本を聞き、マイクで発音練習をしましょう。
+                    </p>
+                </div>
+                <div id="examples-container"></div>
+            </div>
+
+            <!-- Exercises View -->
+            <div id="view-exercises" class="hidden-tab animate-in">
+                <div class="bg-[#fff4eb] border-l-4 border-[#d97706] p-4 rounded-r-lg mb-6 shadow-sm">
+                    <p class="text-[#b45309] text-base font-bold tracking-wide">
+                        解答を入力し「答え合わせ」を押してください。各問題の最後に発音練習ができます。
+                    </p>
+                </div>
+                <div id="exercises-container"></div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-16 text-center text-sm text-gray-400 pb-8 font-medium">
+            <p>※音声認識はChrome推奨。マイク許可が必要です。</p>
+        </footer>
+    </div>
+
+    <script>
+        // ==========================================
+        // Data Configuration (Option 14)
+        // ==========================================
+        const examplesData = [
+            // A 形容詞
+            { id: 1, verb: "限定用法 (1語)", meaning: "私は赤いセーターを買った。", example: "I bought a red sweater.", highlight: "red", category: "A 形容詞", explanation: "形容詞の限定用法: 名詞を前から修飾します。1語の形容詞は通常、名詞の前に置きます。" },
+            { id: 2, verb: "限定用法 (2語以上)", meaning: "私たちは人でいっぱいの列車に乗った。", example: "We got on a train full of people.", highlight: "full of people", category: "A 形容詞", explanation: "形容詞の限定用法: 名詞を後ろから修飾します。形容詞が他の語句を伴って長くなる場合は、名詞の後ろに置きます。" },
+            { id: 3, verb: "限定用法 (-thing)", meaning: "私は何か新しいことをやってみたい。", example: "I want to try something new.", highlight: "something new", category: "A 形容詞", explanation: "形容詞の限定用法: -thing, -one, -body で終わる代名詞を修飾する場合は、1語でもその後ろに置きます。" },
+            { id: 4, verb: "叙述用法 (SVC)", meaning: "私はお腹がすいている。", example: "I'm hungry.", highlight: "hungry", category: "A 形容詞", explanation: "形容詞の叙述用法: 主語を説明する補語として使います (S=C)。" },
+            { id: 5, verb: "叙述用法 (SVOC)", meaning: "彼はドアを開けたままにしておいた。", example: "He left the door open.", highlight: "open", category: "A 形容詞", explanation: "形容詞の叙述用法: 目的語を説明する補語として使います (O=C)。" },
+            { id: 6, verb: "限定用法のみ", meaning: "私の姉は大学生だ。", example: "My elder sister is a college student.", highlight: "elder", category: "A 形容詞", explanation: "限定用法しかない形容詞: elder (年上の)、former (前の)、latter (後半の)、main (主要な)など。" },
+            { id: 7, verb: "叙述用法のみ", meaning: "私の祖母はまだ存命で、元気です。", example: "My grandmother is still alive and well.", highlight: "alive and well", category: "A 形容詞", explanation: "叙述用法しかない形容詞: alive (生きている)、ashamed (恥じている)、well (元気で)など。" },
+            { id: 8, verb: "用法で意味が変わる", meaning: "現在の状況についてあなたはどう思いますか。 / 彼はその会合に出席していなかった。", example: "What do you think of the present situation? / He was not present at the meeting.", highlight: "present", category: "A 形容詞", explanation: "限定用法と叙述用法で意味が異なる形容詞: present (限定:現在の〜 / 叙述:出席した)、certain (限定:ある〜 / 叙述:確信した)、late (限定:最近の〜 / 叙述:遅れた)、ill (限定:悪い〜 / 叙述:病気で)" },
+            { id: 9, verb: "人が主語にならない", meaning: "私の家は通勤に便利だ。", example: "My house is convenient for commuting.", highlight: "convenient", category: "A 形容詞", explanation: "人が主語にならない形容詞: convenient (便利な)、inconvenient (不便な)、necessary (必要な)、possible (可能な)、impossible (不可能な)など。" },
+
+            // B 副詞
+            { id: 10, verb: "様態を表す副詞", meaning: "私は急いで朝食をとった。", example: "I ate my breakfast quickly.", highlight: "quickly", category: "B 副詞", explanation: "「様態（どのように）」を表す副詞: fluently (流ちょうに)、quickly、quietly (静かに)、well (上手に)など。動詞あるいは〈動詞+目的語〉の後ろに置きます。" },
+            { id: 11, verb: "場所・時を表す副詞", meaning: "私たちは今朝ここに着きました。 / 明日、医者に診てもらう予定です。", example: "We arrived here this morning. / I'm going to see a doctor tomorrow.", highlight: "here / tomorrow", category: "B 副詞", explanation: "「場所」「時」を表す副詞: here、tomorrow、immediately (すぐに)など。" },
+            { id: 12, verb: "頻度を表す副詞", meaning: "母はいつも忙しい。", example: "My mother is always busy.", highlight: "always", category: "B 副詞", explanation: "「頻度」を表す副詞: always、usually、often (よく)、never (一度も〜ない)など。助動詞・be動詞の後、一般動詞の前に置きます。" },
+            { id: 13, verb: "程度を表す副詞", meaning: "私はほとんど一瞬で眠りに落ちた。", example: "I fell asleep almost immediately.", highlight: "almost", category: "B 副詞", explanation: "「程度」を表す副詞: almost (ほとんど)、quite (かなり)、really (本当に)、very (とても)など。修飾する語の直前に置きます。" },
+            { id: 14, verb: "文全体を修飾する副詞", meaning: "明日はたぶん雨が降るだろう。", example: "It will probably rain tomorrow.", highlight: "probably", category: "B 副詞", explanation: "文全体を修飾する副詞: probably (おそらく)、definitely (確かに)などの確信度を表すものと、unfortunately (不運にも)、clearly (明らかに)などの話者の気持ちや判断を表すものがあります。" }
+        ];
+
+        const exercisesData = [
+            // Exercise 1: 穴埋めと英作文の混在
+            { id: 101, sectionInstruction: "1. 日本語に合うように、空所に適切な語を入れるか、全文を完成させなさい。A", type: "穴埋め", hint: "彼女は小さなミスを恥じている。", exercise: "She is (     ) (     ) her small mistake.", answer: "ashamed / of", fullExercise: "She is ashamed of her small mistake.", explanation: "ashamed 「恥じている」 は叙述用法しかない形容詞で、補語として使います。" },
+            { id: 102, type: "穴埋め", hint: "その映画は特別なところは何もなかった。", exercise: "The movie was nothing (     ).", answer: "special", fullExercise: "The movie was nothing special.", explanation: "限定用法の形容詞は1語の場合は名詞の前に置きますが、-thing, -one, -body で終わる代名詞の場合はその後ろに置きます。" },
+            { id: 103, type: "穴埋め", hint: "前大統領は難民問題に詳しい。", exercise: "The (     ) president is familiar with the refugee issue.", answer: "former", fullExercise: "The former president is familiar with the refugee issue.", explanation: "former 「前の」は限定用法しかない形容詞で、名詞を前から修飾します。" },
+            { id: 104, type: "英作文", hint: "彼が成功したという知らせに、私はうれしくて興奮した。", exercise: "( The news of his success made ... )", answer: "The news of his success made me happy and excited.", accepts: [], fullExercise: "The news of his success made me happy and excited.", explanation: "形容詞 happy と excited が SVOCの文型でCに使われた形。O=C つまり I was happy and excited.の関係が成立しているので、exciting 「興奮させるような」ではなく excited「興奮した」を使います。" },
+            { id: 105, type: "穴埋め", hint: "必要なら残業します。", exercise: "I'll work overtime (     ) (     ).", answer: "if / necessary", fullExercise: "I'll work overtime if necessary.", explanation: "necessary「必要な」は人を主語にすることができない形容詞。if it is necessary for me to work overtime の省略形ですが、さらに if necessary「必要なら」とするのが一般的です。" },
+            { id: 106, type: "穴埋め", hint: "ある程度までは状況を理解しています。", exercise: "I understand the situation to a (     ) degree.", answer: "certain", fullExercise: "I understand the situation to a certain degree.", explanation: "形容詞 certain は限定用法では名詞の前に付いて「ある〜」の意味を表し、叙述用法では補語になって「確信した」の意味を表します。to a certain degree で「ある程度まで」という意味になります。" },
+
+            // Exercise 2
+            { id: 201, sectionInstruction: "2. 日本語に合うように、(　)に適切な語を入れなさい。B", type: "穴埋め", hint: "父はたいてい朝早く起きる。", exercise: "My father (     ) (     ) up (     ) in the morning.", answer: "usually / gets / early", accepts: ["usually / wakes / early"], fullExercise: "My father usually gets up early in the morning.", explanation: "「たいてい」 usually は頻度を表す副詞で、一般動詞の前に置きます。get up は「起床する」、wake up は「目が覚める」という意味です。「早く」 early と「速く」 fast の使い分けに注意しましょう。" },
+            { id: 202, type: "穴埋め", hint: "この料理はかなりおいしい。", exercise: "This dish is (     ) (     ).", answer: "quite / delicious", accepts: ["rather / tasty", "quite / tasty", "rather / delicious"], fullExercise: "This dish is quite delicious.", explanation: "「かなり」 quite [rather] は程度を表す副詞で、修飾する形容詞の前に置きます。delicious は「とてもおいしい」という意味を表すので very delicious とは言いません。" },
+            { id: 203, type: "穴埋め", hint: "驚いたことに、マイクは中国語を流ちょうに話した。", exercise: "(     ), Mike spoke Chinese (     ).", answer: "Surprisingly / fluently", accepts: ["Astonishingly / fluently", "Amazingly / fluently"], fullExercise: "Surprisingly, Mike spoke Chinese fluently.", explanation: "「驚いたことに」 surprisingly は文全体を修飾する副詞で、文頭で使われることが多いです。fluently 「流ちょうに」は様態を表す副詞で、動詞＋目的語の後ろに置きます。" },
+            { id: 204, type: "穴埋め", hint: "明らかに、結論が出るのにしばらく時間がかかるだろう。", exercise: "(     ), it'll take some time to reach a conclusion.", answer: "Clearly", accepts: ["Obviously", "Evidently"], fullExercise: "Clearly, it'll take some time to reach a conclusion.", explanation: "「明らかに」 clearly [obviously, evidently] は文全体を修飾する副詞で、話者の確信度を表します。" },
+
+            // Exercise 3
+            { id: 301, sectionInstruction: "3. 次の日本語を英語に直しなさい。総合", type: "英作文", hint: "彼女が目標を達成することを私は確信している。", exercise: "", answer: "I'm sure that she will achieve her goal.", accepts: ["I am sure that she will achieve her goal.", "I'm sure she will achieve her goal.", "I am certain that she will achieve her goal.", "I'm certain that she will achieve her goal.", "I am sure of her achieving her goal.", "I'm certain of her achieving her goal."], fullExercise: "I'm sure that she will achieve her goal.", explanation: "形容詞 sure [certain] は補語として「確信している」の意味を表します。It is certain that ~ とも表せますが、It is sure that... は不可です。「目標を達成する」は achieve one's goal。" },
+            { id: 302, type: "英作文", hint: "広島は原爆ドームで有名な都市だ。", exercise: "", answer: "Hiroshima is a city famous for the Atomic Bomb Dome.", accepts: ["Hiroshima is a city which is famous for the Atomic Bomb Dome.", "Hiroshima is a city that is famous for the Atomic Bomb Dome."], fullExercise: "Hiroshima is a city famous for the Atomic Bomb Dome.", explanation: "限定用法の形容詞は2語以上の場合、名詞の後ろから修飾します。famous だけを前に出して、a famous city for the Atomic Bomb Dome とするの誤りです。" },
+            { id: 303, type: "英作文", hint: "地震を予知することはほとんど不可能だ。", exercise: "", answer: "It is almost impossible to predict earthquakes.", accepts: ["It's almost impossible to predict earthquakes.", "It is nearly impossible to predict earthquakes.", "It's nearly impossible to predict earthquakes.", "It is next to impossible to predict earthquakes.", "It's next to impossible to predict earthquakes."], fullExercise: "It is almost impossible to predict earthquakes.", explanation: "impossible「不可能な」は人を主語にすることができない形容詞です。形式主語のit を使って It is impossible to do 「~することは不可能だ」と表します。almost [nearly] 「ほとんど」は程度を表す副詞で、修飾する語の直前に置きます。" }
+        ];
+
+        // ==========================================
+        // Speech & Audio Utilities
+        // ==========================================
+        let availableVoices = [];
+        window.speechSynthesis.onvoiceschanged = () => {
+            availableVoices = window.speechSynthesis.getVoices();
+        };
+
+        function getEnglishVoice() {
+            if (availableVoices.length === 0) availableVoices = window.speechSynthesis.getVoices();
+            const preferred = ['Google US English', 'Google UK English Female', 'Samantha', 'Alex'];
+            for (const name of preferred) {
+                const voice = availableVoices.find(v => v.name === name);
+                if (voice) return voice;
+            }
+            return availableVoices.find(v => v.lang.startsWith('en-'));
+        }
+
+        window.playAudio = function(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.85;
+                const voice = getEnglishVoice();
+                if (voice) utterance.voice = voice;
+                window.speechSynthesis.speak(utterance);
+            }
+        };
+
+        function calculatePronunciationScore(recognized, target) {
+            const normRec = recognized.toLowerCase().replace(/[^a-z0-9\s']/g, '').trim();
+            const normTgt = target.toLowerCase().replace(/[^a-z0-9\s']/g, '').trim();
+            if (normRec === normTgt) return 100;
+            const recWords = normRec.split(/\s+/).filter(w => w);
+            const tgtWords = normTgt.split(/\s+/).filter(w => w);
+            let matchCount = 0;
+            tgtWords.forEach(word => { if (recWords.includes(word)) matchCount++; });
+            const matchRatio = matchCount / tgtWords.length;
+            let score = 0;
+            if (matchRatio === 1) score = 95;
+            else if (matchRatio >= 0.8) score = 85;
+            else if (matchRatio >= 0.5) score = 70;
+            else if (matchRatio > 0) score = 50;
+            else score = 20;
+            return Math.min(score + (Math.floor(Math.random() * 5)), 100);
+        }
+
+        const recognitions = {};
+        window.startRecording = function(id, text, resultContainerId) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) return;
+            const btnText = document.getElementById(`mic-text-${id}`);
+            const btn = document.getElementById(`mic-btn-${id}`);
+            const resultDiv = document.getElementById(resultContainerId);
+            if(recognitions[id]) try { recognitions[id].stop(); } catch(e){}
+            const recognition = new SpeechRecognition();
+            recognitions[id] = recognition;
+            recognition.lang = 'en-US';
+            recognition.onstart = () => {
+                btnText.innerText = "録音中...";
+                btn.classList.replace('bg-emerald-500', 'bg-red-500');
+                btn.classList.add('animate-pulse');
+                resultDiv.innerHTML = '';
+            };
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                const score = calculatePronunciationScore(transcript, text);
+                resultDiv.innerHTML = `
+                    <div class="mt-2 border-t border-gray-200 pt-3 animate-in">
+                        <p class="text-base text-gray-600">あなたの発音: <span class="font-bold font-times text-lg">"${transcript}"</span></p>
+                        <div class="flex items-center mt-1">
+                            <span class="font-black text-2xl ${score >= 80 ? 'text-emerald-600' : 'text-orange-500'}">${score}点</span>
+                            <span class="ml-2 text-sm font-bold text-gray-400">/ 100</span>
+                        </div>
+                    </div>`;
+            };
+            recognition.onend = () => {
+                btnText.innerText = "発音する";
+                btn.classList.replace('bg-red-500', 'bg-emerald-500');
+                btn.classList.remove('animate-pulse');
+            };
+            recognition.start();
+        };
+
+        // ==========================================
+        // UI Rendering Logic
+        // ==========================================
+        function createPronunciationUI(id, textToRead) {
+            const escapedText = textToRead.replace(/'/g, "\\'");
+            return `
+                <div class="flex flex-col space-y-3 mt-4 bg-gray-50 p-4 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <button onclick="playAudio('${escapedText}')" class="flex items-center space-x-1 px-4 py-2 bg-blue-100 text-blue-700 rounded-full hover:bg-blue-200 transition text-sm font-bold shadow-sm">
+                            <i class="ph ph-speaker-high text-lg"></i> <span>お手本</span>
+                        </button>
+                        <button id="mic-btn-${id}" onclick="startRecording('${id}', '${escapedText}', 'result-${id}')" class="flex items-center space-x-1 px-4 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-600 transition text-sm font-bold shadow-sm">
+                            <i class="ph ph-microphone text-lg"></i> <span id="mic-text-${id}">発音する</span>
+                        </button>
+                    </div>
+                    <div id="result-${id}"></div>
+                </div>`;
+        }
+
+        function renderExamples() {
+            const container = document.getElementById('examples-container');
+            const grouped = {};
+            examplesData.forEach(item => {
+                if (!grouped[item.category]) grouped[item.category] = [];
+                grouped[item.category].push(item);
+            });
+            let html = '';
+            for (const [cat, items] of Object.entries(grouped)) {
+                html += `<h2 class="text-xl md:text-2xl font-bold text-[#1e3a8a] border-b-2 border-blue-200 pb-2 mt-10 mb-5">${cat}</h2>`;
+                items.forEach(item => {
+                    html += `
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-5 hover:shadow-md transition">
+                            <div class="flex items-start justify-between border-b border-gray-50 pb-4 mb-4">
+                                <div>
+                                    <h3 class="text-2xl md:text-3xl font-bold text-[#1e3a8a] font-times">${item.verb}</h3>
+                                    <p class="text-gray-700 font-medium text-lg mt-1">${item.meaning}</p>
+                                </div>
+                            </div>
+                            <p class="text-2xl md:text-3xl font-medium text-gray-800 font-times leading-relaxed">${item.example}</p>
+                            
+                            ${item.explanation ? `
+                            <div class="mt-5 bg-blue-50/50 p-4 md:p-5 rounded-lg border border-blue-100 text-base md:text-lg text-gray-800 leading-relaxed font-medium">
+                                <div class="flex items-start">
+                                    <i class="ph-fill ph-lightbulb text-blue-400 mr-2 mt-1 text-xl"></i> 
+                                    <div>${item.explanation}</div>
+                                </div>
+                            </div>
+                            ` : ''}
+
+                            ${createPronunciationUI(`ex-${item.id}`, item.example)}
+                        </div>`;
+                });
+            }
+            container.innerHTML = html;
+        }
+
+        function renderExercises() {
+            const container = document.getElementById('exercises-container');
+            let html = '';
+            
+            exercisesData.forEach((item, idx) => {
+                // Section Instruction
+                if (item.sectionInstruction) {
+                    html += `
+                        <div class="mt-10 mb-5">
+                            <h3 class="text-xl md:text-2xl font-bold text-[#1e3a8a] border-b-2 border-blue-200 pb-2">${item.sectionInstruction}</h3>
+                        </div>
+                    `;
+                }
+
+                let questionHtml = '';
+                if (item.type === "穴埋め") {
+                    const placeholders = item.answer.split(' / ');
+                    let tempExercise = item.exercise;
+                    placeholders.forEach((_, pIdx) => {
+                        tempExercise = tempExercise.replace("(     )", `<input type="text" id="input-${item.id}-${pIdx}" class="mx-1 border-b-2 border-blue-600 bg-blue-50/50 text-center font-bold text-blue-800 text-xl outline-none w-28 md:w-32 font-times" autocomplete="off">`);
+                    });
+                    questionHtml = `<div class="text-xl md:text-2xl font-times font-medium text-gray-700 mb-6 leading-relaxed">${tempExercise}</div>`;
+                } else {
+                    let exerciseTextHtml = item.exercise ? `<div class="mb-4 text-gray-700 text-xl md:text-2xl font-medium font-times leading-relaxed">${item.exercise}</div>` : '';
+                    questionHtml = `
+                        ${exerciseTextHtml}
+                        <input type="text" id="input-${item.id}" class="w-full border-b-2 border-blue-600 bg-blue-50/50 p-3 font-bold text-blue-800 font-times text-xl outline-none" placeholder="解答を入力" autocomplete="off">
+                    `;
+                }
+
+                // Hint (日本語訳など)
+                let hintHtml = item.hint ? `<p class="text-base md:text-lg font-bold text-gray-600 mb-5 flex items-start"><i class="ph ph-translate-text mr-2 mt-1 text-blue-500 text-xl flex-shrink-0"></i> <span>${item.hint}</span></p>` : '';
+
+                html += `
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 mb-6">
+                        <div class="flex items-center mb-4">
+                            <span class="bg-[#1e3a8a] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Exercise ${idx + 1}</span>
+                        </div>
+                        
+                        ${hintHtml}
+                        <div id="q-area-${item.id}">${questionHtml}</div>
+                        
+                        <button id="btn-${item.id}" onclick="toggleAnswer(${item.id})" class="mt-6 w-full md:w-auto bg-[#1e3a8a] text-white px-8 py-3 rounded-lg font-bold hover:bg-[#1e40af] transition shadow-md text-base">
+                            答え合わせ / 解答を見る
+                        </button>
+
+                        <div id="ans-panel-${item.id}" class="hidden-content mt-6 bg-blue-50 rounded-xl border border-blue-100 p-6">
+                            <div id="judge-${item.id}" class="text-2xl font-bold font-times flex items-center"></div>
+                            <div class="mb-5">
+                                <span class="text-xs font-bold text-blue-500 uppercase tracking-widest block mb-1">Correct Answer</span>
+                                <p class="text-3xl font-bold text-blue-800 font-times">${item.fullExercise}</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg border border-blue-100 mb-5 text-base md:text-lg text-gray-800 leading-relaxed font-medium">
+                                <div class="flex items-start">
+                                    <i class="ph-fill ph-lightbulb text-blue-400 mr-2 mt-1 text-xl"></i> 
+                                    <div>${item.explanation}</div>
+                                </div>
+                            </div>
+                            ${createPronunciationUI(`ex-prac-${item.id}`, item.fullExercise)}
+                        </div>
+                    </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        // ==========================================
+        // Interaction Logic
+        // ==========================================
+        window.answerStates = {};
+        window.toggleAnswer = function(id) {
+            const isShowing = window.answerStates[id] || false;
+            const panel = document.getElementById(`ans-panel-${id}`);
+            const btn = document.getElementById(`btn-${id}`);
+            const item = exercisesData.find(ex => ex.id === id);
+            const judge = document.getElementById(`judge-${id}`);
+
+            if (!isShowing) {
+                // Check Answer
+                let userVal = "";
+                if (item.type === "穴埋め") {
+                    const inputs = document.querySelectorAll(`[id^="input-${id}-"]`);
+                    userVal = Array.from(inputs).map(i => i.value.trim()).join(' / ');
+                    // すべての入力欄が空の場合は空文字として扱う
+                    if (userVal.replace(/ \/ /g, '') === "") userVal = "";
+                } else {
+                    userVal = document.getElementById(`input-${id}`).value.trim();
+                }
+
+                // 空白・句読点の削除と小文字化による正規化
+                const normalize = s => s.toLowerCase().replace(/[\s\.\,\?\!]/g, '').replace(/×/g, 'x');
+                
+                // 代表的な解答と一致するか、または許容される別解(accepts)と一致するかチェック
+                let isCorrect = normalize(userVal) === normalize(item.answer);
+                if (!isCorrect && item.accepts) {
+                    isCorrect = item.accepts.some(ans => normalize(userVal) === normalize(ans));
+                }
+
+                if (userVal === "") {
+                    judge.innerHTML = "";
+                    judge.classList.remove("mb-5"); // 余白を詰める
+                } else if (isCorrect) {
+                    judge.innerHTML = `<span class="text-emerald-500 flex items-center"><i class="ph-fill ph-check-circle mr-2"></i> Perfect!</span>`;
+                    judge.classList.add("mb-5");
+                } else {
+                    judge.innerHTML = `<div class="flex flex-col"><span class="text-red-500 flex items-center"><i class="ph-fill ph-x-circle mr-2"></i> Not quite...</span> <span class="text-sm text-gray-500 block mt-1 font-sans font-normal">You entered: ${userVal}</span></div>`;
+                    judge.classList.add("mb-5");
+                }
+
+                panel.classList.remove('hidden-content');
+                panel.classList.add('animate-in');
+                btn.innerText = "解答を隠す";
+                btn.classList.replace('bg-[#1e3a8a]', 'bg-gray-400');
+                window.answerStates[id] = true;
+
+                // 空欄に正解をセットし、文字色を変更する
+                if (item.type === "穴埋め") {
+                    const inputs = document.querySelectorAll(`[id^="input-${id}-"]`);
+                    const answers = item.answer.split(' / ');
+                    inputs.forEach((input, index) => {
+                        input.dataset.userVal = input.value;
+                        input.value = answers[index] || "";
+                        input.classList.replace("text-blue-800", "text-emerald-600");
+                        input.readOnly = true;
+                    });
+                } else {
+                    const input = document.getElementById(`input-${id}`);
+                    if (input) {
+                        input.dataset.userVal = input.value;
+                        input.value = item.fullExercise || item.answer;
+                        input.classList.replace("text-blue-800", "text-emerald-600");
+                        input.readOnly = true;
+                    }
+                }
+
+            } else {
+                panel.classList.add('hidden-content');
+                btn.innerText = "答え合わせ / 解答を見る";
+                btn.classList.replace('bg-gray-400', 'bg-[#1e3a8a]');
+                window.answerStates[id] = false;
+
+                // 元のユーザー入力に戻し、文字色も戻す
+                if (item.type === "穴埋め") {
+                    const inputs = document.querySelectorAll(`[id^="input-${id}-"]`);
+                    inputs.forEach(input => {
+                        if (input.dataset.userVal !== undefined) {
+                            input.value = input.dataset.userVal;
+                        }
+                        input.classList.replace("text-emerald-600", "text-blue-800");
+                        input.readOnly = false;
+                    });
+                } else {
+                    const input = document.getElementById(`input-${id}`);
+                    if (input) {
+                        if (input.dataset.userVal !== undefined) {
+                            input.value = input.dataset.userVal;
+                        }
+                        input.classList.replace("text-emerald-600", "text-blue-800");
+                        input.readOnly = false;
+                    }
+                }
+            }
+        };
+
+        window.switchTab = function(name) {
+            document.getElementById('view-examples').className = name === 'examples' ? 'active-tab animate-in' : 'hidden-tab';
+            document.getElementById('view-exercises').className = name === 'exercises' ? 'active-tab animate-in' : 'hidden-tab';
+            const eb = document.getElementById('tab-btn-examples'), xb = document.getElementById('tab-btn-exercises');
+            const active = ['bg-[#1e3a8a]', 'text-white', 'shadow-md'], inactive = ['text-gray-500', 'hover:bg-[#f0f4f9]'];
+            if (name === 'examples') { eb.classList.add(...active); eb.classList.remove(...inactive); xb.classList.remove(...active); xb.classList.add(...inactive); }
+            else { xb.classList.add(...active); xb.classList.remove(...inactive); eb.classList.remove(...active); eb.classList.add(...inactive); }
+        };
+
+        window.onload = () => { renderExamples(); renderExercises(); };
+    </script>
+</body>
+</html>
